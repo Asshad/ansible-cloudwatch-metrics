@@ -1,0 +1,8 @@
+---
+- name: Install Amazon CloudWatch Monitoring Scripts
+  hosts: all
+  remote_user: youruser
+  become: true
+
+  roles:
+    - cwmetrics

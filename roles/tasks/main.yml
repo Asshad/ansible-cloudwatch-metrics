@@ -1,0 +1,32 @@
+---
+- name: Install Perl Required Packages
+  yum: pkg={{ item }} state=present
+  with_items: 
+    - perl-Switch
+    - perl-DateTime
+    - perl-Sys-Syslog
+    - perl-LWP-Protocol-https
+
+- name: Unarchive a file that needs to be downloaded (added in 2.0)
+  unarchive:
+    src: http://aws-cloudwatch.s3.amazonaws.com/downloads/CloudWatchMonitoringScripts-1.2.1.zip
+    dest: /home/youruser/scripts/
+    remote_src: yes
+
+- name: Chown Directory
+  file: 
+    path: /home/youruser/scripts/aws-scripts-mon
+    state: directory
+    owner: 
+    group: youruser
+    recurse: yes
+
+- name : Add cronjob for the monitoring scripts
+  cron:
+    name: "aws-scripts-mon"
+    minute: "*/5"
+    job: /home/youruser/scripts/aws-scripts-mon/mon-put-instance-data.pl --mem-util --mem-used-incl-cache-buff --mem-used --mem-avail --disk-path=/ --disk-path=/web --disk-path=/var --disk-space-util --from-cron
+    state: present
+    user: youruser
+
+
