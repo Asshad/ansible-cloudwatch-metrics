@@ -11,8 +11,8 @@
 http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/mon-scripts.html
 
 
-OS : AmazonLinux
-Ansible : 2.x
-AWS EC2 Instance with EC2 Role - CloudWatchFullAccess
+- OS : AmazonLinux
+- Ansible : 2.x
+- AWS EC2 Instance with EC2 Role - CloudWatchFullAccess
 
 Please ensure that your EC2 has an attached role to Cloudwatch service.
